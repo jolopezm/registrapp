@@ -1,9 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>login</ion-title>
+    <ion-title>
+      RegistrApp
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -41,10 +40,11 @@
         Mostrar
       </ion-button>
     </ion-list>
+    <ion-button (click)="navegarAsistencia()" size="small" shape="round">Ver asistencia</ion-button><br>
+    <ion-button (click)="navegarScanner()" size="small" shape="round">Escanear QR</ion-button><br>
+    <ion-button (click)="volver()" size="small" shape="round">Volver</ion-button>
   </div>
   <ion-alert trigger="present-alert" header="Usuario"
     subHeader="Su nombre es {{informacion.nombre}} {{informacion.apellido}}" [buttons]="alertButtons"></ion-alert>
-
-    <ion-button (click)="navegarAsistencia()" size="small" shape="round">Conectar</ion-button>
 </ion-content>
 <app-footer></app-footer>

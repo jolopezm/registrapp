@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { AsistenciaPage } from './asistencia/asistencia.page';
 
 const routes: Routes = [
   {
@@ -22,15 +23,18 @@ const routes: Routes = [
     loadChildren: () => import('./api-test/api-test.module').then(m => m.ApiTestPageModule)
   },
   {
+    path: 'asistencia',
+    component: AsistenciaPage,
+    loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
+  },
+  {
+    path: 'scanner-qr',
+    loadChildren: () => import('./scanner-qr/scanner-qr.module').then( m => m.ScannerQRPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./error-page/error-page.module').then(m => m.ErrorPagePageModule)
   },
-  {
-    path: 'asistencia',
-    loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
-  },
-
-
 ];
 
 @NgModule({

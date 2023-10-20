@@ -13,7 +13,7 @@
     <p>Ubice el lector dónde desea escanear el código QR</p>
     <ion-card>
       <ion-card-content>
-          <img alt="QR code scanner" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.qrstuff.com%2Fimages%2Fdefault_qrcode.png&f=1&nofb=1&ipt=27ba218552fb75f7106aebb2ea3aa41ef769b79b2f108fabe25fa06af096ed2a&ipo=images" />
+        <img alt="QR code scanner" [src]="qrCodeUrl" />
       </ion-card-content>
     </ion-card><br>
     <ion-button class="buton" shape="round" size="small" [routerLink]="['/asistencia']">Marcar asistencia</ion-button><br><br>

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Menu de Ingreso
+      RegistrApp
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,7 +14,7 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Credenciales</ion-card-title>
+        <ion-card-title>Inicio de sesión</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-list>
@@ -28,66 +28,60 @@
               placeholder="Ingrese su Contraseña">
             </ion-input>
           </ion-item>
-          <ion-item>
-            <ion-toggle aria-label="Success toggle" color="success" [checked]="true">Recuerdame</ion-toggle>
-          </ion-item><br>
           <ion-button (click)="enviarInformacion()" size="small" shape="round">Conectar</ion-button><br>
           <br>
           <ion-button id="open-modal" shape="round" size="small">
             Registrarse
           </ion-button><br>
+          <!--  
+          <ion-button [routerLink]="['/login']" shape="round" size="small">
+            Redirect
+          </ion-button><br>
+          -->
           <ion-button [routerLink]="['/api-test']" size="small" shape="round">
             API Module
           </ion-button>
           <div>
+
             <h1>{{mensaje}}</h1><br>
           </div>
         </ion-list>
       </ion-card-content>
     </ion-card>
 
+
     <ion-alert trigger="present-alert" header="Registro" subHeader="{{mensaje}}" [buttons]="alertButtons"></ion-alert>
     <!-- Modal Section Begin -->
-    <ion-button (click)="openModal()">Mostrar Código QR</ion-button>
-
-    <ion-modal [isOpen]="showModal" (ionModalDidDismiss)="modalDismissed()">
-      <ion-header>
+    <ion-modal trigger="open-modal">
+      <ng-template>
+        <ion-header>
           <ion-toolbar>
-              <ion-title>Registro & Código QR</ion-title>
-              <ion-buttons slot="end">
-                  <ion-button (click)="closeModal()">Cerrar</ion-button>
-              </ion-buttons>
-          </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-          <!-- Sección del código QR -->
-          <div *ngIf="qrCodeURL">
-              <h2>Tu Código QR:</h2>
-              <img [src]="qrCodeURL" alt="Código QR" />
-          </div>
-          <!-- Sección del registro -->
-          <div *ngIf="!showQRSection">
-              <h2>Registro</h2>
-              <ion-item>
-                  <ion-input [(ngModel)]="user.usuario" label="Nombre Usuario" labelPlacement="floating"
-                      placeholder="Ingrese su Usuario"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-input [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
-                      placeholder="Ingrese su Contraseña"></ion-input>
-              </ion-item>
-              <ion-item>
-                  <ion-label>{{estado}}</ion-label>
-              </ion-item>
-              <ion-button (click)="showQRSectionFunc()">Mostrar QR</ion-button>
-          </div>
-      </ion-content>
-      <ion-footer>
-          <ion-buttons slot="end" id="present-alert">
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel()">Salir</ion-button>
+            </ion-buttons>
+            <ion-title>Registro</ion-title>
+            <ion-buttons slot="end" id="present-alert">
               <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button>
-          </ion-buttons>
-      </ion-footer>
-  </ion-modal>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-item>
+            <ion-input [(ngModel)]="user.usuario" label="Nombre Usuario" labelPlacement="floating"
+              placeholder="Ingrese su Usuario"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
+              placeholder="Ingrese su Contraseña"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>{{estado}}</ion-label>
+          </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
     <!-- Modal Section End -->
+
+
   </div>
 </ion-content>
