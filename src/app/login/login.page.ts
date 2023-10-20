@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { AuthGuard } from '../auth.guard';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -8,7 +8,7 @@ import { AuthGuard } from '../auth.guard';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute, private authGuard: AuthGuard) { }
+  constructor(private router: Router, private activatedRouter: ActivatedRoute) { }
 
   public alertButtons = ['OK'];
   public user = {
@@ -33,22 +33,21 @@ export class LoginPage implements OnInit {
     })
   }
 
+  public camposCompletos(): boolean {
+    return !!this.informacion.nombre && 
+           !!this.informacion.apellido && 
+           !!this.informacion.nivel && 
+           !!this.informacion.fecha;
+  }
+
   navegarAsistencia() {
-    let navigationExtras: NavigationExtras = {
-      state: { user: this.user }
+    if (this.camposCompletos()) {
+      let navigationExtras: NavigationExtras = {
+        state: { user: this.user }
+      }
+      this.router.navigate(['/asistencia'], navigationExtras);
+    } else {
+      // Puedes agregar aquí una alerta o notificación para informar al usuario que debe llenar todos los campos.
     }
-    this.router.navigate(['/asistencia'], navigationExtras);
   }
-
-  navegarScanner() {
-    let navigationExtras: NavigationExtras = {
-      state: { user: this.user }
-    }
-    this.router.navigate(['/scanner-qr'], navigationExtras);
-  }
-
-  volver() {
-    this.router.navigate(['/home']);
-  }
-
 }
