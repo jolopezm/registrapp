@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { ScannerQRPage } from './scanner-qr/scanner-qr.page';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'asistencia',
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
+  },
+  {
+    path: 'scanner-qr',
+    component: ScannerQRPage,
+    loadChildren: () => import('./scanner-qr/scanner-qr.module').then(m => m.ScannerQRPageModule)
   },
   {
     path: '**',

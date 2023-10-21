@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QrCodeService } from '../servicios/qr-code.service';
+import { ActionSheetController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,15 @@ export class LoginPage implements OnInit {
   qrCodeURL: string | null = null;
   showQRSection: boolean = false;
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute, private qrCodeService: QrCodeService) { }
+
+  constructor 
+  (
+    private actionSheetController: ActionSheetController, 
+    private router: Router, 
+    private activatedRouter: ActivatedRoute, 
+    private qrCodeService: QrCodeService, 
+    private navCtrl: NavController
+  ) { }
 
   public alertButtons = ['OK'];
   public user = {
@@ -75,5 +84,32 @@ export class LoginPage implements OnInit {
     this.showModal = false;
     this.showQRSection = false;
     this.qrCodeURL = null;
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Acciones',
+      buttons: [
+        {
+          text: 'Cerrar sesión',
+          role: 'danger', // Apply the red danger theme
+          icon: 'exit', // Optional: You can add an icon
+          handler: () => {
+            console.log('Cerrando sesión'); // Optional: You can perform actions here
+            // Navigate to another page here
+            this.navCtrl.navigateForward('/home'); // Replace '/another-page' with the actual path to the page you want to navigate to
+          }
+        },
+        {
+          text: 'Cerrar',
+          role: 'cancel',
+          icon: 'close',
+          handler: () => {
+            console.log('Cerrando');
+          }
+        }
+      ]
+    });
+    await actionSheet.present();
   }
 }

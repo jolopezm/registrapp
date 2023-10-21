@@ -5,7 +5,7 @@ import { ScannerQRPage } from './scanner-qr.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'scanner-qr',
     component: ScannerQRPage
   }
 ];
