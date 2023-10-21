@@ -53,9 +53,9 @@ export class HomePage {
     confirm() {
         this.auth.register(this.user.usuario, this.user.password).then((res) => {
             if (res) {
-                this.estado = "Usuario Existente";
+                this.estado = "Éste usuario ya existe";
             } else {
-                this.mensaje = "Registro Exitoso";
+                this.mensaje = "Se ha registrado exitosamente";
                 this.closeModal();
             }
         });

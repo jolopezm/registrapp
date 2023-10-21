@@ -35,7 +35,10 @@ export class AutenticacionService {
       console.log("Usuario Existente")
       return true;
     } else {
-      const nuevo: User = { username, password };
+      const nuevo: User = { 
+        username, 
+        password,
+      };
       users.push(nuevo);
       await this.local.set('users', users);
       console.log("Registro Exitoso")
