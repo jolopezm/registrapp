@@ -1,0 +1,24 @@
+[
+    {
+        "username": "nicolas",
+        "password": "Pctron999*",
+        "rol": "A"
+    },
+
+    {
+        "username": "jose",
+        "password": "artero90",
+        "rol": "A"
+    },
+
+    {
+        "username": "felipe",
+        "password": "revdoras123",
+        "rol": "D"
+    },
+    {
+        "username": "joseR",
+        "password": "erda234",
+        "rol": "D"
+    }
+]
