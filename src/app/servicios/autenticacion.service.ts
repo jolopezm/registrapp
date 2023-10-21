@@ -67,7 +67,6 @@ export class AutenticacionService {
     return false;
 
   }
-
   logout() {
     this.autenticado = false;
     this.route.navigate(['/home']);
