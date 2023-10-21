@@ -38,7 +38,7 @@ export class AutenticacionService {
             const nuevo: User = {
                 username, 
                 password, 
-                rol: 'A'  // Asigna 'A' por defecto al rol
+                rol: 'D'  // Asigna 'A' por defecto al rol
             };
             users.push(nuevo);
             await this.local.set('users', users);
