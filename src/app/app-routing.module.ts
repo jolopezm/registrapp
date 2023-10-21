@@ -22,14 +22,13 @@ const routes: Routes = [
     loadChildren: () => import('./api-test/api-test.module').then(m => m.ApiTestPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./error-page/error-page.module').then(m => m.ErrorPagePageModule)
-  },
-  {
     path: 'asistencia',
     loadChildren: () => import('./asistencia/asistencia.module').then( m => m.AsistenciaPageModule)
   },
-
+  {
+    path: '**',
+    loadChildren: () => import('./error-page/error-page.module').then(m => m.ErrorPagePageModule)
+  },
 
 ];
 

@@ -1,50 +1,31 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Menu de Ingreso
+      RegistrApp
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div id="container">
-    <ion-avatar>
-      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-    </ion-avatar>
-
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Credenciales</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list>
-
-          <ion-item>
-            <ion-input [(ngModel)]="user.usuario" label="Nombre Usuario" labelPlacement="floating"
-              placeholder="Ingrese su Usuario"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-input [(ngModel)]="user.password" label="Contraseña" type="password" labelPlacement="floating"
-              placeholder="Ingrese su Contraseña">
-            </ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-toggle aria-label="Success toggle" color="success" [checked]="true">Recuerdame</ion-toggle>
-          </ion-item><br>
-          <ion-button (click)="enviarInformacion()" size="small" shape="round">Conectar</ion-button><br>
-          <br>
-          <ion-button id="open-modal" shape="round" size="small">
-            Registrarse
-          </ion-button><br>
-          <ion-button [routerLink]="['/api-test']" size="small" shape="round">
-            API Module
-          </ion-button>
-          <div>
-            <h1>{{mensaje}}</h1><br>
-          </div>
-        </ion-list>
-      </ion-card-content>
-    </ion-card>
+    <h1>Inicio de sesión</h1>
+    <ion-item>
+      <ion-input [(ngModel)]="user.usuario" label="Nombre de usuario" label-placement="floating" fill="solid" placeholder="Enter text"></ion-input><br>
+    </ion-item><br>
+    <ion-item>
+      <ion-input [(ngModel)]="user.password" label="Contraseña" type="password" label-placement="floating" fill="solid" placeholder="Enter text"></ion-input><br>
+    </ion-item><br>
+    <ion-button (click)="enviarInformacion()" size="small" shape="round">Conectar</ion-button><br>
+    <br>
+    <ion-button id="open-modal" shape="round" size="small">
+      Registrarse
+    </ion-button><br>
+    <!--<ion-button [routerLink]="['/api-test']" size="small" shape="round" >
+      API Module
+    </ion-button>--> 
+    <div>
+      <h1>{{mensaje}}</h1><br>
+  </div>
 
     <ion-alert trigger="present-alert" header="Registro" subHeader="{{mensaje}}" [buttons]="alertButtons"></ion-alert>
     <!-- Modal Section Begin -->
@@ -64,6 +45,7 @@
           <div *ngIf="qrCodeURL">
               <h2>Tu Código QR:</h2>
               <img [src]="qrCodeURL" alt="Código QR" />
+              <ion-button [routerLink]="['/']" size="small" shape="round">Volver</ion-button>
           </div>
           <!-- Sección del registro -->
           <div *ngIf="!showQRSection">

@@ -36,7 +36,7 @@ export class HomePage {
                 };
                 this.router.navigate(['/login'], navigationExtras);
             } else {
-                this.mensaje = "Debe ingresar sus credenciales";
+                this.mensaje = "Nombre de usuario o contraseña incorrectos";
             }
         });
     }

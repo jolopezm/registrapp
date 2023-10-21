@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { QrCodeService } from '../servicios/qr-code.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,11 @@ import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) { }
+  showModal: boolean = false;
+  qrCodeURL: string | null = null;
+  showQRSection: boolean = false;
+
+  constructor(private router: Router, private activatedRouter: ActivatedRoute, private qrCodeService: QrCodeService) { }
 
   public alertButtons = ['OK'];
   public user = {
@@ -40,14 +45,35 @@ export class LoginPage implements OnInit {
            !!this.informacion.fecha;
   }
 
-  navegarAsistencia() {
-    if (this.camposCompletos()) {
-      let navigationExtras: NavigationExtras = {
-        state: { user: this.user }
-      }
-      this.router.navigate(['/asistencia'], navigationExtras);
-    } else {
-      // Puedes agregar aquí una alerta o notificación para informar al usuario que debe llenar todos los campos.
-    }
+  showQRSectionFunc() {
+    this.generateMyQRCode();
+    this.showQRSection = true;
+  }
+
+  openModal() {
+      this.generateMyQRCode();
+      this.showModal = true;
+  }
+
+  closeModal() {
+      this.showModal = false;
+  }
+
+  resetModal() {
+      this.showModal = false;
+      this.showQRSection = false;
+      this.qrCodeURL = null;
+  }
+
+  generateMyQRCode() {
+      const myData = 'https://www.duoc.cl/alumnos/';
+      this.qrCodeService.generateQRCode(myData).subscribe(response => {
+          this.qrCodeURL = URL.createObjectURL(response);
+      });
+  }
+  modalDismissed() {
+    this.showModal = false;
+    this.showQRSection = false;
+    this.qrCodeURL = null;
   }
 }
