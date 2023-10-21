@@ -23,7 +23,7 @@
     <ion-button (click)="openModal()">Mostrar Código QR</ion-button>
     <ion-button [routerLink]="['/scanner-qr']" size="small" shape="round">escanear QR</ion-button>
     <ion-button [routerLink]="['/asistencia']" size="small" shape="round">Ver asistencias</ion-button>
-    <ion-button (click)="presentActionSheet()">Ver acciones</ion-button>
+    <ion-button id="btnAcciones" (click)="presentActionSheet()">Ver acciones</ion-button>
   </div>
   <ion-alert trigger="present-alert" header="Usuario"
     subHeader="Su nombre es {{informacion.nombre}} {{informacion.apellido}}" [buttons]="alertButtons">
