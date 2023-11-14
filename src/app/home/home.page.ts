@@ -16,7 +16,8 @@ export class HomePage {
 
     user = {
         usuario: "",
-        password: ""
+        password: "",
+        rol: ""
     };
     showModal: boolean = false;
     qrCodeURL: string | null = null;
@@ -31,6 +32,7 @@ export class HomePage {
     enviarInformacion() {
         this.auth.login(this.user.usuario, this.user.password).then(() => {
             if (this.auth.autenticado) {
+                this.user.rol = this.auth.getRol(); // Obtener el rol
                 let navigationExtras: NavigationExtras = {
                     state: { user: this.user }
                 };
@@ -40,7 +42,6 @@ export class HomePage {
             }
         });
     }
-
     mostrarConsola() {
         console.log(this.user);
         if (this.user.usuario && this.user.password) {
