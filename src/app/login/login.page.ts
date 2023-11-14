@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QrCodeService } from '../servicios/qr-code.service';
 import { ActionSheetController, NavController } from '@ionic/angular';
+import { AutenticacionService } from '../servicios/autenticacion.service'; // Importar el servicio
+
 
 @Component({
   selector: 'app-login',
@@ -21,13 +23,15 @@ export class LoginPage implements OnInit {
     private router: Router, 
     private activatedRouter: ActivatedRoute, 
     private qrCodeService: QrCodeService, 
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private auth: AutenticacionService
   ) { }
 
   public alertButtons = ['OK'];
   public user = {
     usuario: "",
-    password: ""
+    password: "",
+    rol: ""
   }
   public informacion = {
     nombre: "",
@@ -42,6 +46,7 @@ export class LoginPage implements OnInit {
       if (state) {
         this.user.usuario = state['user'].usuario;
         this.user.password = state['user'].password;
+        this.user.rol = state['user'].rol;
         console.log(this.user);
       }
     })
