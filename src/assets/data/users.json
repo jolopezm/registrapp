@@ -20,5 +20,10 @@
         "username": "joseR",
         "password": "erda234",
         "rol": "D"
+    },
+    {
+        "username": "secre",
+        "password": "222",
+        "rol": "S"
     }
 ]
