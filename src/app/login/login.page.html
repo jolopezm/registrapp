@@ -20,13 +20,13 @@
     <div>
       <ion-router-outlet></ion-router-outlet>
     </div>
-    <ion-button (click)="openModal()">Mostrar Código QR</ion-button>
+    <ion-button (click)="openModal()">Hacer reserva</ion-button>
 
     <!-- Mostrar solo para usuarios con rol A -->
-    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/scanner-qr']" size="small" shape="round">Escanear QR</ion-button>
+    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/scanner-qr']" size="small" shape="round">Hacer reserva</ion-button>
 
     <!-- Mostrar solo para usuarios con rol D -->
-    <ion-button *ngIf="user.rol === 'D'" [routerLink]="['/asistencia']" size="small" shape="round">Ver asistencias</ion-button>
+    <ion-button *ngIf="user.rol === 'D'" [routerLink]="['/asistencia']" size="small" shape="round">Ver reservas</ion-button>
     <ion-button id="btnAcciones" (click)="presentActionSheet()">Ver acciones</ion-button>
   </div>
   <ion-alert trigger="present-alert" header="Usuario"
