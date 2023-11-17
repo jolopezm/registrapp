@@ -27,6 +27,7 @@
 @import "@angular/material/prebuilt-themes/pink-bluegrey.css";
 
 ion-toolbar {
+    --background: rgb(110, 23, 112);
     color: white;
     //font-family: 'Montserrat', sans-serif;
     font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -61,12 +62,16 @@ ion-toolbar {
 
 ion-button {
     --border-radius: 5px;
-    --border-color: #c11414;
+    --border-color: #000000;
     --background-hover: #d2dfd8;
-    --background: rgb(13, 203, 108);
+    --background: rgb(219, 175, 35);
     color: rgb(255, 255, 255);
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     font-weight: bold;
     width: 200px;
 }
+
+ion-input {
+    font-weight: bold;
+  }

@@ -9,7 +9,6 @@ import { Storage } from '@ionic/storage-angular';
 export class AppComponent {
   constructor(private storage: Storage, private platform: Platform) {
     this.iniciarStorage();
-
   }
 
   iniciarStorage() {

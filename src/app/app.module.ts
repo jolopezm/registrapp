@@ -8,7 +8,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx'; 
 import { IonicNativePlugin } from '@ionic-native/core';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { IonicNativePlugin } from '@ionic-native/core';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
-    BarcodeScanner
   ],
   bootstrap: [
     AppComponent
