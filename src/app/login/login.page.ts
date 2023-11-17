@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { QrCodeService } from '../servicios/qr-code.service';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service'; // Importar el servicio
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 
 @Component({
