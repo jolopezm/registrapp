@@ -5,10 +5,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reservar-cita.page.scss'],
 })
 export class ReservarCitaPage implements OnInit {
-
+  fecha?: string;
+  especialidad?: string;
+  medico?: string;
+  sede?: string;
   constructor() { }
 
   ngOnInit() {
+    
   }
-
 }
