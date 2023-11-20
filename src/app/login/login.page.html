@@ -16,14 +16,15 @@
     <h1 id="titulo">
       Bienvenido!
     </h1>
-    <ion-label>Usuario: {{user.usuario}}</ion-label><br><br>
+    <ion-label>Usuario: {{user.usuario}}</ion-label><br>
+    <ion-label>Rol: {{user.rol}}</ion-label><br>
     <div>
       <ion-router-outlet></ion-router-outlet>
     </div>
-    <ion-button (click)="openModal()">Hacer reserva</ion-button>
+    <ion-button (click)="openModal()">Código QR</ion-button>
 
     <!-- Mostrar solo para usuarios con rol A -->
-    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/scanner-qr']" size="small" shape="round">Hacer reserva</ion-button>
+    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/reservar-cita']" size="small" shape="round">Hacer reserva</ion-button>
 
     <!-- Mostrar solo para usuarios con rol D -->
     <ion-button *ngIf="user.rol === 'D'" [routerLink]="['/asistencia']" size="small" shape="round">Ver reservas</ion-button>

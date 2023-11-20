@@ -32,10 +32,13 @@ const routes: Routes = [
     loadChildren: () => import('./scanner-qr/scanner-qr.module').then(m => m.ScannerQRPageModule)
   },
   {
+    path: 'reservar-cita',
+    loadChildren: () => import('./reservar-cita/reservar-cita.module').then( m => m.ReservarCitaPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./error-page/error-page.module').then(m => m.ErrorPagePageModule)
   },
-
 ];
 
 @NgModule({
