@@ -28,11 +28,20 @@ export class LoginPage implements OnInit {
   ) { }
 
   public alertButtons = ['OK'];
+
   public user = {
     usuario: "",
     password: "",
     rol: ""
   }
+
+  public reserva = {
+    fecha: "",
+    especialidad: "",
+    nombreDoctor: "",
+    sede: ""
+  }
+
   public informacion = {
     nombre: "",
     apellido: "",

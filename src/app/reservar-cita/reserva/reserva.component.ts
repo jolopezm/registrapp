@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservarCitaPage } from './reservar-cita.page.ts';
+import { ReservarCitaPage } from '../reservar-cita.page';
 
 @Component({
   selector: 'app-reserva',

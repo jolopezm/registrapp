@@ -8,9 +8,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ReservarCitaPage } from './reservar-cita/reservar-cita.page';
+import { ReservaComponent } from './reservar-cita/reserva/reserva.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ReservarCitaPage, ReservaComponent],
   imports: [BrowserModule, 
             IonicModule.forRoot(), 
             AppRoutingModule, 

@@ -19,6 +19,15 @@ export class HomePage {
         password: "",
         rol: ""
     };
+
+    reserva = {
+        fecha: "",
+        especialidad: "",
+        nombreDoctor: "kkk",
+        sede: ""
+    }
+
+
     showModal: boolean = false;
     qrCodeURL: string | null = null;
     showQRSection: boolean = false;
@@ -34,11 +43,11 @@ export class HomePage {
             if (this.auth.autenticado) {
                 this.user.rol = this.auth.getRol(); // Obtener el rol
                 let navigationExtras: NavigationExtras = {
-                    state: { user: this.user }
+                    state: { user: this.user, reserva: this.reserva }
                 };
                 this.router.navigate(['/login'], navigationExtras);
             } else {
-                this.mensaje = "Nombre de usuario o contraseña incorrectos";
+                this.mensaje = "Nombre de usuario o contraseña son invalidos";
             }
         });
     }

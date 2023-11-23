@@ -6,10 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./error-page.page.scss'],
 })
 export class ErrorPagePage implements OnInit {
-
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit() {
   }
-
 }

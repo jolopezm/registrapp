@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { ReservarCitaPageRoutingModule } from './reservar-cita-routing.module';
-
 import { ReservarCitaPage } from './reservar-cita.page';
 
 @NgModule({
@@ -15,6 +12,7 @@ import { ReservarCitaPage } from './reservar-cita.page';
     IonicModule,
     ReservarCitaPageRoutingModule
   ],
-  declarations: [ReservarCitaPage]
+  declarations: []
 })
 export class ReservarCitaPageModule {}
+  

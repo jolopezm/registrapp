@@ -1,33 +1,60 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Asistencia
+      Cobrar consulta
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">login</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div id="container">
+
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Semana 1</ion-card-title>
-        <ion-card-subtitle>Clase 1</ion-card-subtitle>
+        <ion-card-title>Consulta</ion-card-title>
       </ion-card-header>
-    
+
       <ion-card-content>
-        PGY4121 Programación de aplicaciones móviles <br> Profesor: Nombre de profesor
+        <ion-list>
+          <ion-item>
+            <ion-label><b>RUT: </b>000000000</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Código: </b>123</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Tipo: </b>Cardiología</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Costo total: </b>$50,000</ion-label>
+          </ion-item>
+        </ion-list>
       </ion-card-content>
+    
+      <!--<ion-card-content>
+
+        <ion-button id="open-popover">Eliminar</ion-button>
+        <ion-popover [keepContentsMounted]="true" trigger="open-popover">
+          <ng-template>
+            <ion-content class="ion-padding">Se ha eliminado la reserva.</ion-content>
+          </ng-template>
+        </ion-popover>-->
+
+        <!--<ion-list>
+          <ion-item>
+            <ion-label><b>Fecha</b></ion-label>5 de Diciembre, 2023.<br>11:40 am.
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Doctor</b></ion-label>Alfonso Medina. 
+          </ion-item>
+          <ion-item>
+            <ion-label><b>Sede</b></ion-label>Centro Médico Galenos. 
+          </ion-item>
+        </ion-list>-->
     </ion-card>
+
+
     <!-- se crea una clase para poder modificarlo y se le pone button a los lados para que el estilo se pueda poner mejor -->
-    <ion-button class="buton" id="open-modal" shape="round" size="small">
-      Confirmar asistencia
-    </ion-button><br>
-    <ion-button [routerLink]="['/login']" size="small" shape="round">Volver</ion-button>
+    <ion-button [routerLink]="['/login']" size="small" shape="round">Cobrar</ion-button><br>
   </div>
 </ion-content>

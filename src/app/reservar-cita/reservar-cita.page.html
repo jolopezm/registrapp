@@ -1,55 +1,79 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>reservar-cita</ion-title>
+    <ion-title>Formulario de reserva</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div id="container">
-    <h1 id="titulo">
-      Formulario de reserva
-    </h1>
 
-    <ion-list>
+    <ion-card>
 
-      <h2><ion-label labelPlacement="start">Fecha</ion-label></h2>
-      <ion-item>
-        <ion-datetime-button datetime="datetime"></ion-datetime-button>
+      <ion-card-content>
 
-        <ion-modal [keepContentsMounted]="true">
-          <ng-template>
-            <ion-datetime id="datetime"></ion-datetime>
-          </ng-template>
-        </ion-modal>
-      </ion-item>
+        <ion-list>
+          <ion-label><b>Fecha</b></ion-label>
+          <ion-item>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+          </ion-item><hr>
 
-      <h2><ion-label labelPlacement="start">Especialidad</ion-label></h2>
-      <ion-item>
-        <ion-radio-group value="">
-          <ion-radio value="dcotor1" justify="space-between">Fisiatría</ion-radio><br /><br>
-          <ion-radio value="doctor2" justify="space-between">Cardiología</ion-radio>
-        </ion-radio-group>
-      </ion-item>
+          <ion-label><b>Especialidad</b></ion-label>
+          <ion-item>
+            <ion-radio-group value="">
+              <ion-item>
+                <ion-radio value="doctor1" justify="space-between">Cardiología</ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-radio value="doctor2" justify="space-between">Fisiatría</ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item><hr>
 
-      <h2><ion-label labelPlacement="start">Doctor</ion-label></h2>
-      <ion-item>
-        <ion-radio-group value="">
-          <ion-radio value="dcotor1" justify="space-between">Dr. Gallardo</ion-radio><br /><br>
-          <ion-radio value="doctor2" justify="space-between">Dra. Villalobos</ion-radio>
-        </ion-radio-group>
-      </ion-item>
+          <ion-label><b>Médico</b></ion-label>
+          <ion-item>
+            <ion-radio-group value="">
+              <ion-item>
+                <ion-radio value="doctor1" justify="space-between">Dr. Alfonso Medina</ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-radio value="doctor2" justify="space-between">Dra. Cristina Navarro</ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item><hr>
 
-      <h2><ion-label labelPlacement="start">Sede de atención</ion-label></h2>
-      <ion-item>
-        <ion-radio-group value="Centro Médico Galenos">
-          <ion-radio value="dcotor1" justify="space-between">Centro Médico Galenos</ion-radio><br /><br>
-          <ion-radio value="doctor2" justify="space-between">Centro Médico Vitacura</ion-radio>
-        </ion-radio-group>
-      </ion-item>
+          <ion-label><b>Sede</b></ion-label>
+          <ion-item>
+            <ion-radio-group value="">
+              <ion-item>
+                <ion-radio value="doctor1" justify="space-between">Centro Médico Galenos</ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-radio value="doctor2" justify="space-between">Centro Médico Vitacura</ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-item>
 
-    </ion-list>
+        </ion-list>
 
-    <br><br>
-    <ion-button [routerLink]="['/login']" size="small" shape="round">Guardar</ion-button>
+        <ion-button [routerLink]="['/login']" size="small" shape="round">Guardar y volver</ion-button>
+      </ion-card-content>
+    </ion-card>
   </div>
-</ion-content>x|
+
+<!--Sección Modal-->
+
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="datetime"></ion-datetime>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+<style>
+  hr {
+      color: #999; /* Line color */
+      background-color: #999; /* Line color for old browsers */
+      height: 1px; /* Line thickness */
+      margin: 20px 0; /* Margin above and below the line */
+  }
+</style>
