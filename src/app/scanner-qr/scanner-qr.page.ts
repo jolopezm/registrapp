@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { Barcode, BarcodeFormat, BarcodeScanner, LensFacing } from '@capacitor-mlkit/barcode-scanning';
 import { AlertController } from '@ionic/angular';
+//import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
 
 @Component({
   selector: 'app-scanner-qr',
