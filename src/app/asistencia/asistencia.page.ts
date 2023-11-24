@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AutenticacionService } from '../servicios/autenticacion.service'; // Importar el servicio
 
 
 @Component({
@@ -9,13 +10,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class AsistenciaPage implements OnInit {
 
+  resrvasRealizadas: string[] = [];
+
   public user = {
     usuario: "",
     password: "",
     rol: ""
   }
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) { }
+  constructor(
+    private router: Router, 
+    private activatedRouter: ActivatedRoute, 
+    private auth: AutenticacionService) { }
 
   ngOnInit() {
     this.activatedRouter.queryParams.subscribe(() => {
@@ -27,5 +33,12 @@ export class AsistenciaPage implements OnInit {
         console.log(this.user);
       }
     })
+    this.fetchReservas();
+  }
+
+  private fetchReservas(): void {
+    this.auth.getReservasArray().subscribe(reservas => {
+      this.resrvasRealizadas = reservas.map(reservas => reservas.especialidad);
+    });
   }
 }

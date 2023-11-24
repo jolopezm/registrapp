@@ -52,5 +52,7 @@ export class AppComponent {
         this.user.rol = state['user'].rol;
       }
     })
+
+    this.iniciarStorage();
   }
 }

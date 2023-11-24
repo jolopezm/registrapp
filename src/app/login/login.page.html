@@ -18,14 +18,26 @@
     </h1>
     <ion-label>Usuario: {{user.usuario}}</ion-label><br>
     <ion-label>Rol: {{user.rol}}</ion-label><br>
+    <ul>
+      <li *ngFor="let username of usernames">{{ username }}</li>
+    </ul>
     <div>
       <ion-router-outlet></ion-router-outlet>
     </div>
+
     <!-- Mostrar solo para usuarios con rol A -->
     <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/reservar-cita']" size="small" shape="round">Hacer reserva</ion-button>
+    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/asistencia']" size="small" shape="round">Ver reservas</ion-button>
 
     <!-- Mostrar solo para usuarios con rol D -->
-    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/asistencia']" size="small" shape="round">Ver reservas</ion-button>
+    <ion-button *ngIf="user.rol === 'D'" [routerLink]="['/asistencia']" size="small" shape="round">Ver reservas</ion-button>
+    <ion-button *ngIf="user.rol === 'D'" [routerLink]="['/asistencia']" size="small" shape="round">Ver reservas</ion-button>
+
+    <!-- Mostrar solo para usuarios con rol S -->
+
+    
+    <!-- Mostrar solo para usuarios con rol C -->
+
     <ion-button id="btnAcciones" (click)="presentActionSheet()">Ver acciones</ion-button>
   </div>
   <ion-alert trigger="present-alert" header="Usuario"

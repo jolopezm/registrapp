@@ -29,6 +29,8 @@ export class LoginPage implements OnInit {
 
   public alertButtons = ['OK'];
 
+  usernames: string[] = [];
+
   public user = {
     usuario: "",
     password: "",
@@ -59,6 +61,14 @@ export class LoginPage implements OnInit {
         console.log(this.user);
       }
     })
+
+    this.fetchUsernames();
+  }
+
+  private fetchUsernames(): void {
+    this.auth.getUsersArray().subscribe(users => {
+      this.usernames = users.map(user => user.username);
+    });
   }
 
   public camposCompletos(): boolean {

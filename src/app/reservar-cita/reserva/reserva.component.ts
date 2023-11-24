@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ReservarCitaPage } from '../reservar-cita.page';
 
 @Component({
   selector: 'app-reserva',
@@ -7,9 +6,12 @@ import { ReservarCitaPage } from '../reservar-cita.page';
   styleUrls: ['./reserva.component.scss'],
 })
 export class ReservaComponent  implements OnInit {
+  isModalOpen = false;
 
-  constructor() { }
+  ngOnInit(): void {
+  }
 
-  ngOnInit() {}
-
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
 }

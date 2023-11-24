@@ -5,75 +5,23 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  
   <div id="container">
 
     <ion-card>
-
+      <ion-card-header>
+        <ion-card-title>Formulario de reserva</ion-card-title>
+      </ion-card-header>
+    
       <ion-card-content>
+        <ion-input [(ngModel)]="reserva.fecha" label="Fecha" label-placement="floating"  fill="outline" placeholder="Enter text"></ion-input><br>
+        <ion-input [(ngModel)]="reserva.especialidad"label="Especialidad" label-placement="floating"  fill="outline" placeholder="Enter text"></ion-input><br>
+        <ion-input [(ngModel)]="reserva.doctor"label="Doctor" label-placement="floating"  fill="outline" placeholder="Enter text"></ion-input><br>
+        <ion-input [(ngModel)]="reserva.sede"label="Sede" label-placement="floating"  fill="outline" placeholder="Enter text"></ion-input><br>
 
-        <ion-list>
-          <ion-label><b>Fecha</b></ion-label>
-          <ion-item>
-            <ion-datetime-button datetime="datetime"></ion-datetime-button>
-          </ion-item><hr>
-
-          <ion-label><b>Especialidad</b></ion-label>
-          <ion-item>
-            <ion-radio-group value="">
-              <ion-item>
-                <ion-radio value="doctor1" justify="space-between">Cardiología</ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-radio value="doctor2" justify="space-between">Fisiatría</ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-item><hr>
-
-          <ion-label><b>Médico</b></ion-label>
-          <ion-item>
-            <ion-radio-group value="">
-              <ion-item>
-                <ion-radio value="doctor1" justify="space-between">Dr. Alfonso Medina</ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-radio value="doctor2" justify="space-between">Dra. Cristina Navarro</ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-item><hr>
-
-          <ion-label><b>Sede</b></ion-label>
-          <ion-item>
-            <ion-radio-group value="">
-              <ion-item>
-                <ion-radio value="doctor1" justify="space-between">Centro Médico Galenos</ion-radio>
-              </ion-item>
-              <ion-item>
-                <ion-radio value="doctor2" justify="space-between">Centro Médico Vitacura</ion-radio>
-              </ion-item>
-            </ion-radio-group>
-          </ion-item>
-
-        </ion-list>
-
-        <ion-button [routerLink]="['/login']" size="small" shape="round">Guardar y volver</ion-button>
+        <ion-button (click)="confirm()">Guardar</ion-button><br>
+        <br>
       </ion-card-content>
     </ion-card>
   </div>
-
-<!--Sección Modal-->
-
-  <ion-modal [keepContentsMounted]="true">
-    <ng-template>
-      <ion-datetime id="datetime"></ion-datetime>
-    </ng-template>
-  </ion-modal>
 </ion-content>
-
-<style>
-  hr {
-      color: #999; /* Line color */
-      background-color: #999; /* Line color for old browsers */
-      height: 1px; /* Line thickness */
-      margin: 20px 0; /* Margin above and below the line */
-  }
-</style>
