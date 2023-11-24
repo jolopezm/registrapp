@@ -14,8 +14,14 @@ interface User {
   providedIn: 'root'
 })
 export class AutenticacionService {
-  public autenticado!: boolean;
+  public autenticado: boolean = false;
   private local!: Storage;
+
+  // Cambia el nombre de la propiedad a algo más descriptivo, por ejemplo, 'usuarios'
+  private usuarios: User[] = [];
+
+  // Agrega una propiedad para almacenar el índice del usuario autenticado
+  private usuarioAutenticadoIndex: number | null = null;
 
   constructor(private storage: Storage, private route: Router, private http: HttpClient) {
     this.init().then(() => {
@@ -29,12 +35,13 @@ export class AutenticacionService {
     this.local = this.storage;
 
     // Obtener usuarios desde el almacenamiento
-    const usersInLocal: User[] = (await this.local.get('users')) || [];
+    this.usuarios = (await this.local.get('users')) || [];
 
     // Si no hay usuarios en el almacenamiento, cargar desde el archivo JSON
-    if (!usersInLocal || usersInLocal.length === 0) {
+    if (!this.usuarios || this.usuarios.length === 0) {
       this.getUsuarios().subscribe(usersFromJson => {
-        this.local.set('users', usersFromJson);
+        this.usuarios = usersFromJson;
+        this.local.set('users', this.usuarios);
       });
     }
   }
@@ -51,28 +58,36 @@ export class AutenticacionService {
   // Agregar una propiedad para almacenar el usuario autenticado
   private autenticatedUser: User | null = null;
 
-  // Modificar el método login para almacenar el usuario autenticado
+  // Agregar un método para obtener el usuario autenticado directamente
+  getAuthenticatedUser(): User | null {
+    return this.autenticatedUser;
+  }
+
+  // Actualizar el método login para almacenar el usuario autenticado y su índice
   async login(username: string, password: string): Promise<boolean> {
-    const users: User[] = (await this.local.get('users')) || [];
-    const user = users.find((us: User) => us.username === username && us.password === password);
-    if (user) {
+    const usuario = this.usuarios.find((us: User) => us.username === username && us.password === password);
+
+    if (usuario) {
       this.autenticado = true;
-      this.autenticatedUser = user; // Almacena el usuario autenticado
+      this.autenticatedUser = usuario;
+      this.usuarioAutenticadoIndex = this.usuarios.indexOf(usuario); // Almacena el índice del usuario autenticado
       return true;
     }
+
     this.autenticado = false;
     return false;
   }
 
+  // Agregar un método para cerrar sesión
   logout() {
     this.autenticado = false;
     this.autenticatedUser = null; // Limpia el usuario autenticado
     this.route.navigate(['/home']);
   }
 
+  // Agregar un método para registrar un nuevo usuario
   async register(username: string, password: string): Promise<Boolean> {
-    const users: User[] = (await this.local?.get('users')) || [];
-    const existe = users.find((us: User) => us.username === username && us.password === password);
+    const existe = this.usuarios.find((us: User) => us.username === username && us.password === password);
 
     if (existe) {
       console.log("Usuario Existente");
@@ -83,24 +98,24 @@ export class AutenticacionService {
         password,
         rol: 'A'  // Asigna 'A' por defecto al rol
       };
-      users.push(nuevo);
-      await this.local.set('users', users);
+      this.usuarios.push(nuevo);
+      await this.local.set('users', this.usuarios);
       console.log("Registro Exitoso");
       return false;
     }
   }
 
+  // Agregar un método para migrar usuarios si es necesario
   async migrateUsers() {
-    const users: User[] = (await this.local.get('users')) || [];
     let updated = false;  // Variable para saber si necesitamos actualizar el storage
-    for (let user of users) {
+    for (let user of this.usuarios) {
       if (!user.rol) {
         user.rol = 'A';  // Asigna 'A' a usuarios que no tienen rol
         updated = true;
       }
     }
     if (updated) {
-      await this.local.set('users', users);  // Actualiza el storage si se hizo algún cambio
+      await this.local.set('users', this.usuarios);  // Actualiza el storage si se hizo algún cambio
     }
   }
 }

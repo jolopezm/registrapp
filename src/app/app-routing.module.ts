@@ -35,6 +35,10 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./error-page/error-page.module').then(m => m.ErrorPagePageModule)
   },
+  {
+    path: 'listasistencia',
+    loadChildren: () => import('./listasistencia/listasistencia.module').then( m => m.ListasistenciaPageModule)
+  },
 
 ];
 

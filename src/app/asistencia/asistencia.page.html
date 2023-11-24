@@ -26,7 +26,7 @@
       </ion-card-content>
     </ion-card>
     <!-- se crea una clase para poder modificarlo y se le pone button a los lados para que el estilo se pueda poner mejor -->
-    <ion-button class="buton" id="open-modal" shape="round" size="small">
+    <ion-button (click)="confirmarAsistencia()" class="buton" id="open-modal" shape="round" size="small">
       Confirmar asistencia
     </ion-button><br>
     <ion-button [routerLink]="['/login']" size="small" shape="round">Volver</ion-button>
