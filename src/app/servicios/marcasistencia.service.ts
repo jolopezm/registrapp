@@ -12,8 +12,7 @@ export class MarcaAsistenciaService {
   }
 
   async init() {
-    await this.storage.create();
-    this.local = this.storage;
+    this.local = await this.storage.create();
   }
 
   async marcarAsistencia(username: string) {

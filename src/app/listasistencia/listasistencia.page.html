@@ -1,13 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>listasistencia</ion-title>
+    <ion-title>
+      <br>
+      <h1>RegistrApp</h1>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">listasistencia</ion-title>
+      <ion-title size="large">Lista de Asistencias</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div id="container">
+    <ion-header [translucent]="true">
+      <ion-toolbar>
+        <ion-title>
+          Lista de Asistencias
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content [fullscreen]="true">
+      <ion-list>
+        <ion-item *ngFor="let asistencia of asistencias">
+          <ion-label>{{ asistencia.alumno }}</ion-label>
+          <ion-label>{{ asistencia.docente }}</ion-label>
+          <ion-label>{{ asistencia.fecha }}</ion-label>
+          <ion-label>{{ asistencia.asignatura }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </div>
 </ion-content>

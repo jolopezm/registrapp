@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
 
-import { ListasistenciaPageRoutingModule } from './listasistencia-routing.module';
-
-import { ListasistenciaPage } from './listasistencia.page';
+import { ListAsistenciaPage } from './listasistencia.page';  // Asegúrate de que el nombre coincide con tu componente
 
 @NgModule({
+  declarations: [ListAsistenciaPage],
   imports: [
     CommonModule,
-    FormsModule,
     IonicModule,
-    ListasistenciaPageRoutingModule
+    RouterModule.forChild([
+      {
+        path: '',
+        component: ListAsistenciaPage,  // Asegúrate de que el nombre coincide con tu componente
+      }
+    ]),
   ],
-  declarations: [ListasistenciaPage]
 })
 export class ListasistenciaPageModule {}

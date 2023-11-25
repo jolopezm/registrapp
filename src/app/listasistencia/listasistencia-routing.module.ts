@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ListasistenciaPage } from './listasistencia.page';
+import { ListAsistenciaPage } from './listasistencia.page'; // Cambiado el nombre aquí
 
 const routes: Routes = [
   {
     path: '',
-    component: ListasistenciaPage
-  }
+    component: ListAsistenciaPage, // Cambiado el nombre aquí
+  },
 ];
 
 @NgModule({

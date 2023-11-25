@@ -9,9 +9,9 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+  path: '',
+  redirectTo: 'home',
+  pathMatch: 'full'
   },
   {
     path: 'login',
@@ -32,14 +32,13 @@ const routes: Routes = [
     loadChildren: () => import('./scanner-qr/scanner-qr.module').then(m => m.ScannerQRPageModule)
   },
   {
-    path: '**',
-    loadChildren: () => import('./error-page/error-page.module').then(m => m.ErrorPagePageModule)
-  },
-  {
     path: 'listasistencia',
     loadChildren: () => import('./listasistencia/listasistencia.module').then( m => m.ListasistenciaPageModule)
   },
-
+  {
+    path: '**',
+    loadChildren: () => import('./error-page/error-page.module').then(m => m.ErrorPagePageModule)
+  },
 ];
 
 @NgModule({
