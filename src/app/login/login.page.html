@@ -19,37 +19,41 @@
     </div>
 
     <!-- Mostrar solo para usuarios con rol D -->
-    <ion-button *ngIf="user.rol === 'D'" (click)="openModal()">Generar código QR</ion-button>
-    <ion-button *ngIf="user.rol === 'D'" [routerLink]="['/listasistencia']" size="small" shape="round">Lista asistencia</ion-button><br>
+    <ion-button *ngIf="user.rol === 'D'" (click)="openModal()">Generar código QR<br></ion-button>
+    <ion-button *ngIf="user.rol === 'D'" [routerLink]="['/listasistencia']" size="small" shape="round">Lista asistencia<br></ion-button>
 
     <!-- Mostrar solo para usuarios con rol A -->
-    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/scanner-qr']" size="small" shape="round">Scanner QR</ion-button><br>
-    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/asistencia']" size="small" shape="round">Ver assitencia</ion-button><br>
-    
+    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/scanner-qr']" size="small" shape="round">Scanner QR<br></ion-button>
+    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/asistencia']" size="small" shape="round">Ver assitencia<br></ion-button>
     <ion-button id="btnAcciones" (click)="presentActionSheet()">Ver acciones</ion-button>
   </div>
-  <ion-alert trigger="present-alert" header="Usuario"
-    subHeader="Su nombre es {{informacion.nombre}} {{informacion.apellido}}" [buttons]="alertButtons">
-  </ion-alert>
 
-    <ion-modal [isOpen]="showModal" (ionModalDidDismiss)="modalDismissed()">
-      <ion-header>
+  <ion-modal [isOpen]="showModal" (ionModalDidDismiss)="modalDismissed()">
+    <ion-content>
+      <!-- Sección del código QR -->        
+      <div *ngIf="qrCodeURL">
+        <ion-header>
           <ion-toolbar>
-              <ion-title>Código QR</ion-title>
+            <ion-title>
+              Coídgo QR
+            </ion-title>
           </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-          <!-- Sección del código QR -->
-          <div *ngIf="qrCodeURL">
-              <h2>Tu Código QR:</h2>
-              <img [src]="qrCodeURL" alt="Cargando..." />
-              <ion-button (click)="closeModal()">Cerrar</ion-button>
-          </div>
-          <!-- Sección del registro -->
-          <div *ngIf="!showQRSection">
-              <ion-button (click)="showQRSectionFunc()">Mostrar QR</ion-button>
-          </div>
-      </ion-content>
+        </ion-header>
+
+        <div id="container">
+          <ion-card>
+            <ion-card-content>
+              <img class="centered-image" [src]="qrCodeURL" alt="Cargando..." /><br>
+              <a style="color: red; font-size: 15px;"  (click)="closeModal()">CERRAR</a>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+      <!-- Sección del registro -->
+      <div *ngIf="!showQRSection">
+        <ion-button (click)="showQRSectionFunc()">Mostrar QR</ion-button>
+      </div>
+    </ion-content>
   </ion-modal>
 </ion-content>
 <app-footer></app-footer>

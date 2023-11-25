@@ -8,7 +8,6 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { IonicNativePlugin } from '@ionic-native/core';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,8 @@ import { IonicNativePlugin } from '@ionic-native/core';
     FormsModule
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, 
+    { provide: RouteReuseStrategy, 
+      useClass: IonicRouteStrategy }, 
   ],
   bootstrap: [
     AppComponent

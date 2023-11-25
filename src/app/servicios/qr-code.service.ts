@@ -10,7 +10,7 @@ export class QrCodeService {
 
     generateQRCode(data: string) {
         const baseUrl = 'https://api.qrserver.com/v1/create-qr-code/';
-        const size = '100x100';  // Puedes cambiar el tamaño según tus necesidades
+        const size = '250x250';  // Puedes cambiar el tamaño según tus necesidades
         return this.http.get(baseUrl, {
             responseType: 'blob',
             params: {
