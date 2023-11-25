@@ -25,11 +25,13 @@
     
     <ion-content [fullscreen]="true">
       <ion-list>
-        <ion-item *ngFor="let asistencia of asistencias">
-          <ion-label>{{ asistencia.alumno }}</ion-label>
-          <ion-label>{{ asistencia.docente }}</ion-label>
-          <ion-label>{{ asistencia.fecha }}</ion-label>
-          <ion-label>{{ asistencia.asignatura }}</ion-label>
+        <ion-item *ngFor="let asistencia of asistencias; let i = index">
+          <ion-label>
+            <p><strong>Alumno:</strong> {{ asistencia.alumno }}</p>
+            <p><strong>Docente:</strong> {{ asistencia.docente }}</p>
+            <p><strong>Fecha:</strong> {{ asistencia.fecha }}</p>
+            <p><strong>Asignatura:</strong> {{ asistencia.asignatura }}</p>
+          </ion-label>
         </ion-item>
       </ion-list>
     </ion-content>

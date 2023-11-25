@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Barcode, BarcodeFormat, BarcodeScanner, LensFacing } from '@capacitor-mlkit/barcode-scanning';
+import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { AlertController } from '@ionic/angular';
-//import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-scanner-qr',
@@ -11,7 +11,11 @@ import { AlertController } from '@ionic/angular';
 export class ScannerQRPage implements OnInit {
   isSupported = false;
   barcodes: Barcode[] = [];  
-  constructor(private alertController: AlertController) { }
+
+  constructor(
+    private alertController: AlertController, 
+    private router: Router    
+    ) { }
 
   ngOnInit() {
     BarcodeScanner.isSupported().then((result) => {
@@ -27,6 +31,9 @@ export class ScannerQRPage implements OnInit {
     }
     const { barcodes } = await BarcodeScanner.scan();
     this.barcodes.push(...barcodes);
+
+    let navigationExtras: NavigationExtras = {};
+    this.router.navigate(['/asistencia'], navigationExtras);
   }
 
   async requestPermissions(): Promise<boolean> {

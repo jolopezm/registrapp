@@ -26,6 +26,7 @@ export class ListAsistenciaPage implements OnInit {
 }
 
 interface Asistencia {
+  nro: number;
   alumno: string;
   docente: string;
   asignatura: string;

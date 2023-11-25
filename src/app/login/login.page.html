@@ -24,7 +24,7 @@
 
     <!-- Mostrar solo para usuarios con rol A -->
     <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/scanner-qr']" size="small" shape="round">Scanner QR<br></ion-button>
-    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/asistencia']" size="small" shape="round">Ver assitencia<br></ion-button>
+    <!--<ion-button *ngIf="user.rol === 'A'" [routerLink]="['/asistencia']" size="small" shape="round">Ver assitencia<br></ion-button>-->
     <ion-button id="btnAcciones" (click)="presentActionSheet()">Ver acciones</ion-button>
   </div>
 

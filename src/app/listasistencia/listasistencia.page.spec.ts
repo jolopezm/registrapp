@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ListasistenciaPage } from './listasistencia.page';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ListAsistenciaPage } from './listasistencia.page';
 
 describe('ListasistenciaPage', () => {
-  let component: ListasistenciaPage;
-  let fixture: ComponentFixture<ListasistenciaPage>;
+  let component: ListAsistenciaPage;
+  let fixture: ComponentFixture<ListAsistenciaPage>;
 
-  beforeEach(async(() => {
-    fixture = TestBed.createComponent(ListasistenciaPage);
+  beforeEach(waitForAsync(() => {
+    fixture = TestBed.createComponent(ListAsistenciaPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
