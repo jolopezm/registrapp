@@ -8,11 +8,15 @@
 
 <ion-content [fullscreen]="true">
   <div id="container">
-    <ul>
-      <li *ngFor="let reserva of resrvasRealizadas">{{ reserva }}</li>
-    </ul>
-
-
-    <ion-button [routerLink]="['/login']" size="small" shape="round">Volver</ion-button><br>
+    <ol>
+      <li *ngFor="let reserva of reservasRealizadas">
+        <ion-label>{{ reserva.doctor }}, {{reserva.sede}}</ion-label><br>
+        <a id="present-alert" style="font-size: 10px;" disabled>MODIFICAR</a>
+        <a style="font-size: 10px; color: red" (click)="deleteReserva(reserva)">ELIMINAR</a>
+        <br>
+        -----------------------------------------------------
+      </li>
+    </ol>
+      <a [routerLink]="['/login']">VOLVER</a><br>
   </div>
 </ion-content>

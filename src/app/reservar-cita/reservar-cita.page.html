@@ -19,7 +19,8 @@
         <ion-input [(ngModel)]="reserva.doctor"label="Doctor" label-placement="floating"  fill="outline" placeholder="Enter text"></ion-input><br>
         <ion-input [(ngModel)]="reserva.sede"label="Sede" label-placement="floating"  fill="outline" placeholder="Enter text"></ion-input><br>
 
-        <ion-button (click)="confirm()">Guardar</ion-button><br>
+        <ion-button (click)="confirm()">Guardar</ion-button><br><br>
+        <a style="font-size: 15px;"  [routerLink]="['/login']">VOLVER</a>
         <br>
       </ion-card-content>
     </ion-card>

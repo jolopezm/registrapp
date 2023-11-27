@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AutenticacionService } from '../servicios/autenticacion.service'; // Importar el servicio
+import { AutenticacionService, Reserva } from '../servicios/autenticacion.service'; // Importar el servicio
 
 
 @Component({
@@ -10,7 +10,7 @@ import { AutenticacionService } from '../servicios/autenticacion.service'; // Im
 })
 export class AsistenciaPage implements OnInit {
 
-  resrvasRealizadas: string[] = [];
+  reservasRealizadas: Reserva[] = [];
 
   public user = {
     usuario: "",
@@ -37,8 +37,26 @@ export class AsistenciaPage implements OnInit {
   }
 
   private fetchReservas(): void {
-    this.auth.getReservasArray().subscribe(reservas => {
-      this.resrvasRealizadas = reservas.map(reservas => reservas.especialidad);
-    });
+    this.auth.getReservasArray().subscribe(
+      reservas => {
+        this.reservasRealizadas = reservas.map(reserva => ({
+          fecha: reserva.fecha,
+          especialidad: reserva.especialidad,
+          doctor: reserva.doctor,
+          sede: reserva.sede
+        }));
+      },
+      error => {
+        console.error('Error obteniendo las reservas: ', error);
+        // Handle the error as needed
+      }
+    );
+  }
+
+  deleteReserva(reserva: any): void {
+    const index = this.reservasRealizadas.indexOf(reserva);
+    if (index !== -1) {
+      this.reservasRealizadas.splice(index, 1);
+    }
   }
 }

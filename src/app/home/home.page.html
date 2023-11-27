@@ -18,17 +18,14 @@
         <ion-input [(ngModel)]="user.usuario" label="Nombre de usuario" label-placement="floating" type="username" fill="outline" placeholder="Enter text"></ion-input><br>
         <ion-input [(ngModel)]="user.password"label="Contraseña" label-placement="floating" type="password" fill="outline" placeholder="Enter text"></ion-input><br>
 
+        <ion-item>
+          <ion-label>{{mensaje}}</ion-label>
+        </ion-item>
+
         <ion-button (click)="enviarInformacion()">Conectar</ion-button><br>
         <br>
 
-        <a style="font-size: 15px;"  (click)="openModal()">REGISTRARSE</a><br>
-        <!--<ion-button [routerLink]="['/api-test']" size="small" shape="round" >
-          API Module
-        </ion-button>--> 
-
-        <div>
-          <h1>{{mensaje}}</h1><br>
-        </div>
+        <a (click)="openModal()">REGISTRARSE</a><br>
       </ion-card-content>
     </ion-card>
   </div>
@@ -68,7 +65,7 @@
                 <ion-label>{{estado}}</ion-label>
               </ion-item>
               <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button><br><br>
-              <a style="color: red; font-size: 15px;"  (click)="closeModal()">CERRAR</a><br><br>
+              <a style="color: red;"  (click)="closeModal()">CERRAR</a><br>
             </ion-card-content>
           </ion-card>
         </div>

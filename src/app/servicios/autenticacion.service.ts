@@ -10,7 +10,7 @@ interface User {
   rol: string;
 }
 
-interface Reserva {
+export interface Reserva {
   fecha: string;
   especialidad: string;
   doctor: string; 
@@ -78,7 +78,6 @@ export class AutenticacionService {
 
   // Agregar una propiedad para almacenar el usuario autenticado
   private autenticatedUser: User | null = null;
-  private autenticatedReserva: Reserva | null = null;
 
   // Modificar el método login para almacenar el usuario autenticado
   async login(username: string, password: string): Promise<boolean> {
