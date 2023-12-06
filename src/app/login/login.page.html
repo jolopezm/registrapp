@@ -29,6 +29,7 @@
     <div *ngIf="user.rol === 'A'">
       <ion-button [routerLink]="['/scanner-qr']">Scanner QR</ion-button><br>
       <ion-button [routerLink]="['/asistencia']">marcar assitencia</ion-button><br>
+      <ion-button id="open-modal1" >Open asistencia</ion-button><br>
     </div>
   
     <ion-button id="btnAcciones" (click)="presentActionSheet()">Ver acciones</ion-button>
@@ -81,15 +82,59 @@
           <ion-list-header>
             <h1>{{ asistencias[0].asignatura }}</h1>
           </ion-list-header>
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <h2><ion-col><strong>Docente: </strong>{{ asistencias[0].docente }}</ion-col></h2>
+                <ion-col></ion-col>
+                <h2><ion-col><strong>Fecha: </strong>{{ asistencias[0].fecha }}</ion-col></h2>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-list-header>
+            <h1>Alumnos</h1>
+          </ion-list-header>
           <ion-item *ngFor="let asistencia of asistencias; let i = index">
             <ion-label style="font-size: 12px;">
-              Alumno: {{ asistencia.alumno }}<br>
-              Docente: {{ asistencia.docente }}<br>
-              Fecha: {{ asistencia.fecha }}<br>
-              Asignatura: {{ asistencia.asignatura }}<br>
+              {{ i+1 }}. {{ asistencia.alumno }}<br>
             </ion-label>
           </ion-item>
         </ion-list>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!--Modal marcar asistencia-->
+
+  <ion-modal #modal trigger="open-modal1">
+    <ng-template>
+      <ion-content color="light">
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button class="toolbar" (click)="closeModal()">Cerrar</ion-button>
+            </ion-buttons>
+            <ion-title>
+              <br>
+              <h1>Asistencia</h1>
+            </ion-title>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ asignatura }}</ion-card-title>
+            <ion-card-subtitle>Docente: {{ docente }}</ion-card-subtitle>
+            <ion-card-subtitle>Fecha: {{ fecha }}</ion-card-subtitle>
+          </ion-card-header>
+        
+          <ion-card-content>
+            <ion-button (click)="confirmarAsistencia()" class="buton" id="open-modal" shape="round" size="small">
+              Confirmar asistencia
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
 
       </ion-content>
     </ng-template>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QrCodeService } from '../servicios/qr-code.service';
-import { ActionSheetController, NavController } from '@ionic/angular';
+import { ActionSheetController, NavController, ModalController, ToastController } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service'; // Importar el servicio
 import { MarcaAsistenciaService } from '../servicios/marcasistencia.service'; 
 
@@ -18,10 +18,12 @@ export class LoginPage implements OnInit {
 
   constructor (
     private actionSheetController: ActionSheetController, 
+    private navCtrl: NavController,
+    private modalController: ModalController,
+    private toastController: ToastController,
     private router: Router, 
     private activatedRouter: ActivatedRoute, 
     private qrCodeService: QrCodeService, 
-    private navCtrl: NavController,
     private auth: AutenticacionService,
     private marcaAsistenciaService: MarcaAsistenciaService
   ) { }
@@ -33,12 +35,10 @@ export class LoginPage implements OnInit {
     password: "",
     rol: ""
   }
-  public informacion = {
-    nombre: "",
-    apellido: "",
-    nivel: "",
-    fecha: ""
-  }
+
+  asignatura = this.marcaAsistenciaService.asignatura;
+  docente = this.marcaAsistenciaService.docente;
+  fecha = this.marcaAsistenciaService.fecha;
 
   ngOnInit() {
     this.activatedRouter.queryParams.subscribe(() => {
@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
 
 
   closeModal() {
-    this.showModal = false;
+    this.modalController.dismiss();
   }
 
   resetModal() {
@@ -121,10 +121,38 @@ export class LoginPage implements OnInit {
     });
     await actionSheet.present();
   }
+
+  async confirmarAsistencia() {
+    if (this.auth.autenticado) {
+      const usuarioAutenticado = this.auth.getAuthenticatedUser();
+  
+      if (usuarioAutenticado) {
+        const nombreUsuario = usuarioAutenticado.username;
+  
+        // Retrieve existing asistencias
+        const asistencias: Asistencia[] = await this.marcaAsistenciaService.obtenerAsistencias();
+  
+        // Check if the user is already in the list
+        if (!this.isAlreadyInList(nombreUsuario, asistencias)) {
+          // If not in the list, mark attendance and close the modal
+          this.marcaAsistenciaService.marcarAsistencia(nombreUsuario);
+          this.closeModal();
+        } else {
+          // User is already in the list, display a message or take appropriate action
+          console.log('Ya has marcado tu asistencia.');
+          // You can also display a toast or any other notification to inform the user.
+        }
+      }
+    }
+  }
+  
+  private isAlreadyInList(username: string, asistencias: Asistencia[]): boolean {
+    return asistencias.some(asistencia => asistencia.alumno === username);
+  }
+  
 }
 
 interface Asistencia {
-  nro: number;
   alumno: string;
   docente: string;
   asignatura: string;
