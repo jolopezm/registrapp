@@ -26,7 +26,11 @@ export class MarcaAsistenciaService {
   }
 
   async obtenerAsistencias() {
-    return await this.local.get('asistencias') || [];
+    try {
+      return await this.local.get('asistencias') || [];
+    } catch(error) {
+      console.log("Error al obtener asistencias en marcarasistencia.service.ts: ", error)
+    }
   }
 
   private obtenerFechaActual(): string {

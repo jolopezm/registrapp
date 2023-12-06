@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { QrCodeService } from '../servicios/qr-code.service';
 import { ActionSheetController, NavController } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service'; // Importar el servicio
-
+import { MarcaAsistenciaService } from '../servicios/marcasistencia.service'; 
 
 @Component({
   selector: 'app-login',
@@ -11,23 +11,23 @@ import { AutenticacionService } from '../servicios/autenticacion.service'; // Im
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  asistencias: Asistencia[] = [];
   showModal: boolean = false;
   qrCodeURL: string | null = null;
   showQRSection: boolean = false;
 
-
-  constructor 
-  (
+  constructor (
     private actionSheetController: ActionSheetController, 
     private router: Router, 
     private activatedRouter: ActivatedRoute, 
     private qrCodeService: QrCodeService, 
     private navCtrl: NavController,
-    private auth: AutenticacionService
+    private auth: AutenticacionService,
+    private marcaAsistenciaService: MarcaAsistenciaService
   ) { }
 
   public alertButtons = ['OK'];
+
   public user = {
     usuario: "",
     password: "",
@@ -52,39 +52,43 @@ export class LoginPage implements OnInit {
     })
   }
 
-  public camposCompletos(): boolean {
-    return !!this.informacion.nombre && 
-           !!this.informacion.apellido && 
-           !!this.informacion.nivel && 
-           !!this.informacion.fecha;
-  }
-
   showQRSectionFunc() {
     this.generateMyQRCode();
     this.showQRSection = true;
   }
 
   openModal() {
-      this.generateMyQRCode();
-      this.showModal = true;
+    this.generateMyQRCode();
+    this.showModal = true;
   }
 
+
   closeModal() {
-      this.showModal = false;
+    this.showModal = false;
   }
 
   resetModal() {
-      this.showModal = false;
-      this.showQRSection = false;
-      this.qrCodeURL = null;
+    this.showModal = false;
+    this.showQRSection = false;
+    this.qrCodeURL = null;
   }
 
   generateMyQRCode() {
-      const myData = 'https://www.duoc.cl/alumnos/';
-      this.qrCodeService.generateQRCode(myData).subscribe(response => {
-          this.qrCodeURL = URL.createObjectURL(response);
-      });
+    const myData = 'https://www.duoc.cl/alumnos/';
+    this.qrCodeService.generateQRCode(myData).subscribe(response => {
+        this.qrCodeURL = URL.createObjectURL(response);
+    });
   }
+
+  async cargarAsistencias() {
+    try {
+      this.asistencias = await this.marcaAsistenciaService.obtenerAsistencias();
+    } catch (error) {
+      console.error('Error al cargar las asistencias', error);
+      // Puedes agregar lógica adicional aquí, como mostrar un mensaje de error en la interfaz de usuario.
+    }
+  }
+
   modalDismissed() {
     this.showModal = false;
     this.showQRSection = false;
@@ -117,4 +121,12 @@ export class LoginPage implements OnInit {
     });
     await actionSheet.present();
   }
+}
+
+interface Asistencia {
+  nro: number;
+  alumno: string;
+  docente: string;
+  asignatura: string;
+  fecha: string;
 }

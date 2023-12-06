@@ -1,39 +1,30 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      <br>
-      <h1>RegistrApp</h1>
+      Lista de Asistencias
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Lista de Asistencias</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div id="container">
-    <ion-header [translucent]="true">
-      <ion-toolbar>
-        <ion-title>
-          Lista de Asistencias
-        </ion-title>
-      </ion-toolbar>
-    </ion-header>
-    
-    <ion-content [fullscreen]="true">
-      <ion-list>
+    <ion-list>
+      <ol>
         <ion-item *ngFor="let asistencia of asistencias; let i = index">
-          <ion-label>
-            <p><strong>Alumno:</strong> {{ asistencia.alumno }}</p>
-            <p><strong>Docente:</strong> {{ asistencia.docente }}</p>
-            <p><strong>Fecha:</strong> {{ asistencia.fecha }}</p>
-            <p><strong>Asignatura:</strong> {{ asistencia.asignatura }}</p>
+          <ion-label style="font-size: 12px;">
+            Alumno: {{ asistencia.alumno }}<br>
+            Docente: {{ asistencia.docente }}<br>
+            Fecha: {{ asistencia.fecha }}<br>
+            Asignatura: {{ asistencia.asignatura }}<br>
           </ion-label>
         </ion-item>
-      </ion-list>
-    </ion-content>
+      </ol>
+    </ion-list>
+    <ion-infinite-scroll>
+      <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+    <ion-button [routerLink]="['/login']" size="small" shape="round">Volver</ion-button>
   </div>
+
+  
 </ion-content>

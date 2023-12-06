@@ -18,9 +18,14 @@ export class ScannerQRPage implements OnInit {
     ) { }
 
   ngOnInit() {
-    BarcodeScanner.isSupported().then((result) => {
-      this.isSupported = result.supported;
-    });
+    if (this.isSupported) {
+      BarcodeScanner.isSupported().then((result) => {
+        this.isSupported = result.supported;
+      });
+      console.log("El scanner es compatible con este dispositivo.")
+    } else {
+      console.log("El scanner no es compatible con este dispositivo.")
+    }
   }
 
   async scan(): Promise<void> {

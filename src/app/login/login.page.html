@@ -19,14 +19,22 @@
     </div>
 
     <!-- Mostrar solo para usuarios con rol D -->
-    <ion-button *ngIf="user.rol === 'D'" (click)="openModal()">Generar código QR<br></ion-button>
-    <ion-button *ngIf="user.rol === 'D'" [routerLink]="['/listasistencia']" size="small" shape="round">Lista asistencia<br></ion-button>
+    <div *ngIf="user.rol === 'D'">
+      <ion-button (click)="openModal()">Generar código QR</ion-button><br>
+      <ion-button [routerLink]="['/listasistencia']">Lista asistencia</ion-button><br>
+      <ion-button id="open-modal" (click)="cargarAsistencias()">Open Modal</ion-button><br>
+    </div>
 
     <!-- Mostrar solo para usuarios con rol A -->
-    <ion-button *ngIf="user.rol === 'A'" [routerLink]="['/scanner-qr']" size="small" shape="round">Scanner QR<br></ion-button>
-    <!--<ion-button *ngIf="user.rol === 'A'" [routerLink]="['/asistencia']" size="small" shape="round">Ver assitencia<br></ion-button>-->
+    <div *ngIf="user.rol === 'A'">
+      <ion-button [routerLink]="['/scanner-qr']">Scanner QR</ion-button><br>
+      <ion-button [routerLink]="['/asistencia']">marcar assitencia</ion-button><br>
+    </div>
+  
     <ion-button id="btnAcciones" (click)="presentActionSheet()">Ver acciones</ion-button>
   </div>
+
+  <!--Modal Código QR-->
 
   <ion-modal [isOpen]="showModal" (ionModalDidDismiss)="modalDismissed()">
     <ion-content>
@@ -34,26 +42,57 @@
       <div *ngIf="qrCodeURL">
         <ion-header>
           <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button class="toolbar" (click)="closeModal()">Cerrar</ion-button>
+            </ion-buttons>
             <ion-title>
-              Coídgo QR
+              <br>
+              <h1>Código QR</h1>
             </ion-title>
           </ion-toolbar>
         </ion-header>
-
-        <div id="container">
-          <ion-card>
-            <ion-card-content>
-              <img class="centered-image" [src]="qrCodeURL" alt="Cargando..." /><br>
-              <a style="color: red; font-size: 15px;"  (click)="closeModal()">CERRAR</a>
-            </ion-card-content>
-          </ion-card>
-        </div>
+        <img class="center-image" [src]="qrCodeURL" alt="Cargando..." /><br>
       </div>
       <!-- Sección del registro -->
       <div *ngIf="!showQRSection">
         <ion-button (click)="showQRSectionFunc()">Mostrar QR</ion-button>
       </div>
     </ion-content>
+  </ion-modal>
+
+  <!--Modal Lista de asistencia-->
+
+  <ion-modal #modal trigger="open-modal">
+    <ng-template>
+      <ion-content color="light">
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button class="toolbar" (click)="modal.dismiss()">Cerrar</ion-button>
+            </ion-buttons>
+            <ion-title>
+              <br>
+              <h1>Lista de asistencia</h1>
+            </ion-title>
+          </ion-toolbar>
+        </ion-header>
+
+        <ion-list>
+          <ion-list-header>
+            <h1>{{ asistencias[0].asignatura }}</h1>
+          </ion-list-header>
+          <ion-item *ngFor="let asistencia of asistencias; let i = index">
+            <ion-label style="font-size: 12px;">
+              Alumno: {{ asistencia.alumno }}<br>
+              Docente: {{ asistencia.docente }}<br>
+              Fecha: {{ asistencia.fecha }}<br>
+              Asignatura: {{ asistencia.asignatura }}<br>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+      </ion-content>
+    </ng-template>
   </ion-modal>
 </ion-content>
 <app-footer></app-footer>

@@ -12,7 +12,11 @@ export class ListAsistenciaPage implements OnInit {
   constructor(private marcaAsistenciaService: MarcaAsistenciaService) {}
 
   ngOnInit() {
-    this.cargarAsistencias();
+    if (!this.cargarAsistencias) {
+      console.log("Error al cargar asistencia.")
+    } else {
+      this.cargarAsistencias();
+    }
   }
 
   async cargarAsistencias() {
