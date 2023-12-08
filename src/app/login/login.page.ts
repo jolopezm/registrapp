@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { QrCodeService } from '../servicios/qr-code.service';
-import { ActionSheetController, NavController, ModalController, ToastController } from '@ionic/angular';
+import { ActionSheetController, NavController, ModalController, ToastController, AlertController } from '@ionic/angular';
 import { AutenticacionService } from '../servicios/autenticacion.service'; // Importar el servicio
 import { MarcaAsistenciaService } from '../servicios/marcasistencia.service'; 
+import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 
 @Component({
   selector: 'app-login',
@@ -15,12 +16,16 @@ export class LoginPage implements OnInit {
   showModal: boolean = false;
   qrCodeURL: string | null = null;
   showQRSection: boolean = false;
+  isSupported = false;
+  barcodes: Barcode[] = [];  
+  asistenciaConfirmada: boolean = false;
 
   constructor (
     private actionSheetController: ActionSheetController, 
     private navCtrl: NavController,
     private modalController: ModalController,
     private toastController: ToastController,
+    private alertController: AlertController,
     private router: Router, 
     private activatedRouter: ActivatedRoute, 
     private qrCodeService: QrCodeService, 
@@ -50,6 +55,15 @@ export class LoginPage implements OnInit {
         console.log(this.user);
       }
     })
+
+    if (this.isSupported) {
+      BarcodeScanner.isSupported().then((result) => {
+        this.isSupported = result.supported;
+      });
+      console.log("El scanner es compatible con este dispositivo.")
+    } else {
+      console.log("El scanner no es compatible con este dispositivo.")
+    }
   }
 
   showQRSectionFunc() {
@@ -73,10 +87,12 @@ export class LoginPage implements OnInit {
     this.qrCodeURL = null;
   }
 
+  myData = 'https://www.duoc.cl/alumnos/';
+
   generateMyQRCode() {
-    const myData = 'https://www.duoc.cl/alumnos/';
-    this.qrCodeService.generateQRCode(myData).subscribe(response => {
+    this.qrCodeService.generateQRCode(this.myData).subscribe(response => {
         this.qrCodeURL = URL.createObjectURL(response);
+        this.myData = this.qrCodeURL;
     });
   }
 
@@ -129,27 +145,74 @@ export class LoginPage implements OnInit {
       if (usuarioAutenticado) {
         const nombreUsuario = usuarioAutenticado.username;
   
-        // Retrieve existing asistencias
-        const asistencias: Asistencia[] = await this.marcaAsistenciaService.obtenerAsistencias();
+        try {
+          const asistencias: Asistencia[] = await this.marcaAsistenciaService.obtenerAsistencias();
   
-        // Check if the user is already in the list
-        if (!this.isAlreadyInList(nombreUsuario, asistencias)) {
-          // If not in the list, mark attendance and close the modal
-          this.marcaAsistenciaService.marcarAsistencia(nombreUsuario);
-          this.closeModal();
-        } else {
-          // User is already in the list, display a message or take appropriate action
-          console.log('Ya has marcado tu asistencia.');
-          // You can also display a toast or any other notification to inform the user.
+          // Check if the user is already in the list
+          if (!this.isAlreadyInList(nombreUsuario, asistencias)) {
+            // If not in the list, mark attendance and close the modal
+            this.marcaAsistenciaService.marcarAsistencia(nombreUsuario);
+            this.closeModal();
+  
+            // Toast for user not in the list (red)
+            this.presentToast('Asistencia guardada.', 'green-toast');
+  
+          } else {
+            // User has already confirmed assistance
+            // Set the variable to true
+            this.asistenciaConfirmada = true;
+  
+            // Toast for user already in the list (green)
+            this.presentToast('Ya has confirmado tu asistencia.', 'red-toast');
+          }
+        } catch (error) {
+          console.error('Error:', error);
         }
       }
     }
+  }
+
+  async presentToast(message: string, cssClass: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 5000,
+      cssClass
+    });
+  
+    toast.present();
   }
   
   private isAlreadyInList(username: string, asistencias: Asistencia[]): boolean {
     return asistencias.some(asistencia => asistencia.alumno === username);
   }
-  
+
+
+  async scan(): Promise<void> {
+    const granted = await this.requestPermissions();
+    if (!granted) {
+      this.presentAlert();
+      return;
+    }
+    const { barcodes } = await BarcodeScanner.scan();
+    this.barcodes.push(...barcodes);
+
+    let navigationExtras: NavigationExtras = {};
+    this.router.navigate(['/asistencia'], navigationExtras);
+  }
+
+  async requestPermissions(): Promise<boolean> {
+    const { camera } = await BarcodeScanner.requestPermissions();
+    return camera === 'granted' || camera === 'limited';
+  }
+
+  async presentAlert(): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Permission denied',
+      message: 'Please grant camera permission to use the barcode scanner.',
+      buttons: ['OK'],
+    });
+    await alert.present();
+  }
 }
 
 interface Asistencia {
@@ -158,3 +221,4 @@ interface Asistencia {
   asignatura: string;
   fecha: string;
 }
+

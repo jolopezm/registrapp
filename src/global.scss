@@ -61,10 +61,10 @@ ion-toolbar {
 }
 
 ion-button {
-    --border-radius: 8px;
-    --border-color: #000000;
     --background-hover: #d2dfd8;
     --background: rgb(219, 175, 35);
+    border-radius: 6px;
+    border: 1px solid black;
     color: rgb(255, 255, 255);
     font-family: 'Montserrat', sans-serif;
     font-size: medium;
@@ -74,9 +74,29 @@ ion-button {
 
 ion-input {
     font-weight: bold;
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 ion-button.toolbar {
     font-weight: lighter;
     width: auto;
+}
+
+ion-card {
+    border: 1px solid black;
+}
+
+img {
+    border-radius: 10px;
+}
+
+.green-toast {
+    --background: #4CAF50; /* Green background color */
+    color: #ffffff; /* White text color */
+  }
+  
+.red-toast {    
+    --background: #FF5722; /* Red background color */
+    color: #ffffff; /* White text color */
 }

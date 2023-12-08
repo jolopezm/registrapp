@@ -9,26 +9,51 @@
 
 <ion-content [fullscreen]="true">
   <div id="container">
-    <h1 id="titulo">
-      Bienvenido alumno!
-    </h1>
-    <ion-label>Usuario: {{user.usuario}}</ion-label><br>
-    <ion-label>Rol: {{user.rol}}</ion-label><br><br>
-    <div>
-      <ion-router-outlet></ion-router-outlet>
-    </div>
 
     <!-- Mostrar solo para usuarios con rol D -->
     <div *ngIf="user.rol === 'D'">
+
+      <h1 id="titulo">
+        Bienvenido profesor
+      </h1>
+      <ion-label>Usuario: {{user.usuario}}</ion-label><br>
+      <ion-label>Rol: {{user.rol}}</ion-label><br><br>
+      <div>
+        <ion-router-outlet></ion-router-outlet>
+      </div>
+
       <ion-button (click)="openModal()">Generar código QR</ion-button><br>
-      <ion-button [routerLink]="['/listasistencia']">Lista asistencia</ion-button><br>
-      <ion-button id="open-modal" (click)="cargarAsistencias()">Open Modal</ion-button><br>
+      <!--
+        <ion-button [routerLink]="['/listasistencia']">Lista asistencia</ion-button><br>
+      -->
+      <ion-button id="open-modal" (click)="cargarAsistencias()">Ver asistencias</ion-button><br>
     </div>
 
     <!-- Mostrar solo para usuarios con rol A -->
     <div *ngIf="user.rol === 'A'">
-      <ion-button [routerLink]="['/scanner-qr']">Scanner QR</ion-button><br>
-      <ion-button [routerLink]="['/asistencia']">marcar assitencia</ion-button><br>
+
+      <h1 id="titulo">
+        Bienvenido alumno
+      </h1>
+      <ion-label>Usuario: {{user.usuario}}</ion-label><br>
+      <ion-label>Rol: {{user.rol}}</ion-label><br><br>
+      <div>
+        <ion-router-outlet></ion-router-outlet>
+      </div>
+
+      <ion-list>
+        <ion-item *ngFor="let barcode of barcodes">
+          <ion-label position="stacked">{{ barcode.format }}</ion-label>
+          <ion-input type="text" [value]="barcode.rawValue"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button (click)="scan()" [disabled]="!isSupported">
+        Scanner QR <ion-icon slot="end" name="scan"></ion-icon>
+      </ion-button>
+
+      <!--
+        <ion-button [routerLink]="['/asistencia']">marcar assitencia</ion-button><br>
+      -->
       <ion-button id="open-modal1" >Open asistencia</ion-button><br>
     </div>
   
@@ -39,20 +64,39 @@
 
   <ion-modal [isOpen]="showModal" (ionModalDidDismiss)="modalDismissed()">
     <ion-content>
+      <div class="container">
       <!-- Sección del código QR -->        
-      <div *ngIf="qrCodeURL">
-        <ion-header>
-          <ion-toolbar>
-            <ion-buttons slot="start">
-              <ion-button class="toolbar" (click)="closeModal()">Cerrar</ion-button>
-            </ion-buttons>
-            <ion-title>
-              <br>
-              <h1>Código QR</h1>
-            </ion-title>
-          </ion-toolbar>
-        </ion-header>
-        <img class="center-image" [src]="qrCodeURL" alt="Cargando..." /><br>
+        <div *ngIf="qrCodeURL">
+          <ion-header>
+            <ion-toolbar>
+              <ion-buttons slot="start">
+                <ion-button class="toolbar" (click)="closeModal()">Cerrar</ion-button>
+              </ion-buttons>
+              <ion-title>
+                <br>
+                <h1>Código QR</h1>
+              </ion-title>
+            </ion-toolbar>
+          </ion-header>
+
+          <ion-grid>
+            <ion-row justify-content-center align-items-center>
+              <ion-col>
+                <ion-card>
+                  <!-- Your card content goes here -->
+                  <ion-card-content>
+                    <img class="center-image" [src]="qrCodeURL" alt="Cargando..." /><br>
+                    <strong>Valor de QR: </strong><br>
+                    {{ qrCodeURL }}<br>
+
+                    <ion-button (click)="generateMyQRCode()" >regenerar</ion-button>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </div>
       </div>
       <!-- Sección del registro -->
       <div *ngIf="!showQRSection">
@@ -130,11 +174,13 @@
           </ion-card-header>
         
           <ion-card-content>
-            <ion-button (click)="confirmarAsistencia()" class="buton" id="open-modal" shape="round" size="small">
+            <ion-button (click)="confirmarAsistencia()" class="buton" id="open-modal" style="width: 248px;">
               Confirmar asistencia
             </ion-button>
           </ion-card-content>
         </ion-card>
+
+        <ion-toast *ngIf="asistenciaConfirmada" message="message" duration="5000"></ion-toast>
 
       </ion-content>
     </ng-template>
