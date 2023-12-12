@@ -54,10 +54,10 @@
       <!--
         <ion-button [routerLink]="['/asistencia']">marcar assitencia</ion-button><br>
       -->
-      <ion-button id="open-modal1" >Open asistencia</ion-button><br>
+      <ion-button id="open-modal1">Open asistencia</ion-button><br>
     </div>
   
-    <ion-button id="btnAcciones" (click)="presentActionSheet()">Ver acciones</ion-button>
+    <ion-button id="btnAcciones" (click)="presentActionSheet()">Opciones<ion-icon name="options-outline" slot="end"></ion-icon></ion-button>
   </div>
 
   <!--Modal Código QR-->
@@ -70,7 +70,7 @@
           <ion-header>
             <ion-toolbar>
               <ion-buttons slot="start">
-                <ion-button class="toolbar" (click)="closeModal()">Cerrar</ion-button>
+                <ion-button class="toolbar" (click)="closeModal()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
               </ion-buttons>
               <ion-title>
                 <br>
@@ -113,7 +113,7 @@
         <ion-header>
           <ion-toolbar>
             <ion-buttons slot="start">
-              <ion-button class="toolbar" (click)="modal.dismiss()">Cerrar</ion-button>
+              <ion-button class="toolbar" (click)="modal.dismiss()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
             </ion-buttons>
             <ion-title>
               <br>
@@ -157,7 +157,7 @@
         <ion-header>
           <ion-toolbar>
             <ion-buttons slot="start">
-              <ion-button class="toolbar" (click)="closeModal()">Cerrar</ion-button>
+              <ion-button class="toolbar" (click)="closeModal()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
             </ion-buttons>
             <ion-title>
               <br>

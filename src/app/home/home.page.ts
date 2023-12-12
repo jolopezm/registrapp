@@ -1,27 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, ContentChild } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { AutenticacionService } from '../servicios/autenticacion.service';
 import { QrCodeService } from '../servicios/qr-code.service';
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
 
+export class HomePage {
     public mensaje = "";
     public estado: String = "";
     public alertButtons = ['OK'];
+    showModal: boolean = false;
+    qrCodeURL: string | null = null;
+    showQRSection: boolean = false;
+    passwordType: string = "password"
+    passwordShown: boolean  = false;
+    isCheckboxChecked = false;
 
     user = {
         usuario: "",
         password: "",
         rol: ""
     };
-    showModal: boolean = false;
-    qrCodeURL: string | null = null;
-    showQRSection: boolean = false;
 
     constructor(
         private router: Router, 
@@ -52,14 +56,18 @@ export class HomePage {
     }
 
     confirm() {
-        this.auth.register(this.user.usuario, this.user.password).then((res) => {
-            if (res) {
-                this.estado = "Éste usuario ya existe";
-            } else {
-                this.mensaje = "Se ha registrado exitosamente";
-                this.closeModal();
-            }
-        });
+        if (this.auth.validatePassword(this.user.password))
+            this.auth.register(this.user.usuario, this.user.password).then((res) => {
+                if (res) {
+                    this.estado = "Éste usuario ya existe";
+                } else {
+                    this.mensaje = "Se ha registrado exitosamente";
+                    this.closeModal();
+                }
+            });
+        else {
+            this.estado = "Contraseña inválida";
+        }
     }
 
     showQRSectionFunc() {
@@ -89,8 +97,12 @@ export class HomePage {
         });
     }
     modalDismissed() {
-      this.showModal = false;
-      this.showQRSection = false;
-      this.qrCodeURL = null;
-  }
+        this.showModal = false;
+        this.showQRSection = false;
+        this.qrCodeURL = null;
+    }
+
+    returnPassword() {
+        return this.user.password;
+    }
 }

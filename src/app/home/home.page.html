@@ -16,8 +16,10 @@
       </ion-card-header>
     
       <ion-card-content>
-        <ion-input [(ngModel)]="user.usuario" label="Nombre de usuario" label-placement="floating" type="username" fill="outline" placeholder="Enter text"></ion-input><br>
-        <ion-input [(ngModel)]="user.password"label="Contraseña" label-placement="floating" type="password" fill="outline" placeholder="Enter text"></ion-input><br>
+        <ion-label>Nombre de usuario</ion-label>
+        <ion-input [(ngModel)]="user.usuario"  type="username" placeholder="Enter text"></ion-input><br>
+        <ion-label>Contraseña</ion-label>
+        <ion-input [(ngModel)]="user.password" type="password" placeholder="Enter text"></ion-input><br>
         {{mensaje}}
         <ion-button (click)="enviarInformacion()">Conectar</ion-button><br>
         <br>
@@ -31,36 +33,37 @@
   <ion-alert trigger="present-alert" header="Registro" subHeader="{{mensaje}}" [buttons]="alertButtons"></ion-alert>
 <!-- Modal Section Begin -->
   <ion-modal [isOpen]="showModal" (ionModalDidDismiss)="modalDismissed()">
-    <ion-header>
-        <ion-toolbar>
-            <ion-title>
-              Registro
-            </ion-title>
-        </ion-toolbar>
-    </ion-header>
     <ion-content>
 <!-- Sección del registro -->
       <div *ngIf="!showQRSection">
-        <ion-header [translucent]="true">
+        <ion-header>
           <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button class="toolbar" (click)="closeModal()"><ion-icon name="arrow-back-outline"></ion-icon></ion-button>
+            </ion-buttons>
             <ion-title>
-              Registro
+              <br>
+              <h1>Registro de usuario</h1>
             </ion-title>
           </ion-toolbar>
         </ion-header>
 
         <div id="container">
           <ion-card>
-            <ion-card-header>
-              <ion-card-title>Registro de usuario</ion-card-title>
-            </ion-card-header>
-          
             <ion-card-content>
-              <ion-input [(ngModel)]="user.usuario" label="Nombre de usuario" label-placement="floating" type="username" fill="outline" placeholder="Enter text"></ion-input><br>
-              <ion-input [(ngModel)]="user.password"label="Contraseña" label-placement="floating" type="password" fill="outline" placeholder="Enter text"></ion-input><br>
-              {{estado}}
-              <ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button><br><br>
-              <a style="color: red; font-size: 15px;"  (click)="closeModal()">CERRAR</a>
+              <ion-label>Nombre de usuario</ion-label>
+              <ion-input [(ngModel)]="user.usuario"  type="username" placeholder="Ingrese su nombre"></ion-input><br>
+              <ion-label>Contraseña</ion-label><br>
+              Su contraseña debe contener más de 6 carácteres y al menos 2 números.
+              <ion-input [(ngModel)]="user.password" [type]="passwordType" placeholder="Ingrese su contraseña"></ion-input><br>
+              <ion-checkbox [(ngModel)]="isCheckboxChecked">Mostrar contraseña</ion-checkbox>
+
+              <ion-item *ngIf="isCheckboxChecked">
+                  <p>{{returnPassword()}}</p>
+              </ion-item>
+
+              <br>{{estado}}
+              <br><ion-button (click)="confirm()" [strong]="true">Confirmar</ion-button><br><br>
             </ion-card-content>
           </ion-card>
         </div>

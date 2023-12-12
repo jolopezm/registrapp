@@ -117,12 +117,11 @@ export class LoginPage implements OnInit {
       buttons: [
         {
           text: 'Cerrar sesión',
-          role: 'danger', // Apply the red danger theme
-          icon: 'exit', // Optional: You can add an icon
+          role: 'danger', 
+          icon: 'exit', 
           handler: () => {
-            console.log('Cerrando sesión'); // Optional: You can perform actions here
-            // Navigate to another page here
-            this.navCtrl.navigateForward('/home'); // Replace '/another-page' with the actual path to the page you want to navigate to
+            console.log('Cerrando sesión');
+            this.auth.logout();
           }
         },
         {
@@ -141,28 +140,18 @@ export class LoginPage implements OnInit {
   async confirmarAsistencia() {
     if (this.auth.autenticado) {
       const usuarioAutenticado = this.auth.getAuthenticatedUser();
-  
       if (usuarioAutenticado) {
         const nombreUsuario = usuarioAutenticado.username;
   
         try {
           const asistencias: Asistencia[] = await this.marcaAsistenciaService.obtenerAsistencias();
-  
-          // Check if the user is already in the list
-          if (!this.isAlreadyInList(nombreUsuario, asistencias)) {
-            // If not in the list, mark attendance and close the modal
+          if (!this.guardadoEnLista(nombreUsuario, asistencias)) {
             this.marcaAsistenciaService.marcarAsistencia(nombreUsuario);
             this.closeModal();
-  
-            // Toast for user not in the list (red)
             this.presentToast('Asistencia guardada.', 'green-toast');
   
           } else {
-            // User has already confirmed assistance
-            // Set the variable to true
             this.asistenciaConfirmada = true;
-  
-            // Toast for user already in the list (green)
             this.presentToast('Ya has confirmado tu asistencia.', 'red-toast');
           }
         } catch (error) {
@@ -175,17 +164,16 @@ export class LoginPage implements OnInit {
   async presentToast(message: string, cssClass: string) {
     const toast = await this.toastController.create({
       message,
-      duration: 5000,
+      duration: 1000,
       cssClass
     });
   
     toast.present();
   }
   
-  private isAlreadyInList(username: string, asistencias: Asistencia[]): boolean {
+  private guardadoEnLista(username: string, asistencias: Asistencia[]): boolean {
     return asistencias.some(asistencia => asistencia.alumno === username);
   }
-
 
   async scan(): Promise<void> {
     const granted = await this.requestPermissions();

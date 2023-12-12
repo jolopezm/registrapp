@@ -13,6 +13,7 @@ interface User {
 @Injectable({
   providedIn: 'root'
 })
+
 export class AutenticacionService {
   public autenticado: boolean = false;
   private local!: Storage;
@@ -87,7 +88,7 @@ export class AutenticacionService {
 
   // Agregar un método para registrar un nuevo usuario
   async register(username: string, password: string): Promise<Boolean> {
-    const existe = this.usuarios.find((us: User) => us.username === username && us.password === password);
+    const existe = this.usuarios.find((us: User) => us.username === username);
 
     if (existe) {
       console.log("Usuario Existente");
@@ -118,4 +119,20 @@ export class AutenticacionService {
       await this.local.set('users', this.usuarios);  // Actualiza el storage si se hizo algún cambio
     }
   }
+
+  validatePassword(password: string): boolean {
+    if (password.length < 6) {
+      return false;
+    }
+
+    const digitCount = (password.match(/\d/g) || []).length;
+    const uppercaseCount = (password.match(/[A-Z]/g) || []).length;
+
+    if (digitCount < 2 && uppercaseCount < 2) {
+      return false;
+    }
+
+    return true;
+  }
+
 }
