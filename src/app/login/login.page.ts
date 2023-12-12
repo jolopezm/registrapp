@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   showModal: boolean = false;
   qrCodeURL: string | null = null;
   showQRSection: boolean = false;
-  isSupported = false;
+  isSupported = true;
   barcodes: Barcode[] = [];  
   asistenciaConfirmada: boolean = false;
 
@@ -176,16 +176,21 @@ export class LoginPage implements OnInit {
   }
 
   async scan(): Promise<void> {
-    const granted = await this.requestPermissions();
-    if (!granted) {
-      this.presentAlert();
-      return;
+    try {
+      const granted = await this.requestPermissions();
+      if (!granted) {
+        this.presentAlert();
+        return;
+      }
+      const { barcodes } = await BarcodeScanner.scan();
+      this.barcodes.push(...barcodes);
+      let navigationExtras: NavigationExtras = {};
+      this.openAsistenciaModal();
     }
-    const { barcodes } = await BarcodeScanner.scan();
-    this.barcodes.push(...barcodes);
-
-    let navigationExtras: NavigationExtras = {};
-    this.router.navigate(['/asistencia'], navigationExtras);
+    catch (error) {
+      this.presentToast('Dispositivo incompatible con el scanner QR.', 'red-toast')
+      console.error('Error: ', error)
+    }
   }
 
   async requestPermissions(): Promise<boolean> {
@@ -195,11 +200,24 @@ export class LoginPage implements OnInit {
 
   async presentAlert(): Promise<void> {
     const alert = await this.alertController.create({
-      header: 'Permission denied',
-      message: 'Please grant camera permission to use the barcode scanner.',
+      header: 'Permiso denegado',
+      message: 'Por favor otorgue los permisos para ejecutar el scanner.',
       buttons: ['OK'],
     });
     await alert.present();
+    
+  }
+
+  async openAsistenciaModal() {
+    const modal = await this.modalController.create({
+      component: 'modal', // Usa 'modal' como nombre del componente, que tiene la directiva #modal
+      componentProps: {
+        // Puedes pasar parámetros al modal si es necesario
+      },
+      id: 'open-modal1' // Identifica el modal que quieres abrir por el trigger
+    });
+  
+    await modal.present();
   }
 }
 
